@@ -1,106 +1,104 @@
-"use client";
+import Link from "next/link";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE || "";
-
-export default function Home() {
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+      <header className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6">
         <div className="text-xl font-semibold tracking-tight">LAVS</div>
-        <div className="text-sm text-slate-600">Layered Authenticity Verification</div>
+        <nav className="flex items-center gap-4 text-sm text-slate-700">
+          <Link href="#how" className="hover:text-slate-900">How It Works</Link>
+          <Link href="#features" className="hover:text-slate-900">Features</Link>
+          <Link href="/verify" className="rounded-lg bg-slate-900 px-4 py-2 font-semibold text-white shadow hover:bg-slate-800">Verify Content</Link>
+        </nav>
       </header>
 
-      <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 pb-16">
-        <section className="grid gap-10 rounded-3xl bg-white p-8 shadow-xl ring-1 ring-slate-100 lg:grid-cols-2 lg:p-10">
+      <main className="mx-auto flex max-w-6xl flex-col gap-16 px-6 pb-24">
+        <section className="grid gap-10 rounded-3xl bg-white p-8 shadow-xl ring-1 ring-slate-100 lg:grid-cols-2 lg:p-12">
           <div className="flex flex-col gap-4">
             <p className="inline-flex w-fit items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-              Multi-modal · Explainable · Forensic
+              AI Deepfake & Manipulated Content Verification
             </p>
             <h1 className="text-3xl font-semibold leading-tight text-slate-900 lg:text-4xl">
-              Verify images, videos, audio, or URLs with layered evidence—not a single classifier.
+              Verify images, videos, voices, and websites to detect AI-generated or manipulated content.
             </h1>
-            <p className="text-base leading-7 text-slate-600">
-              LAVS combines origin forensics, pattern integrity, behavioral deviation, and adaptive aggregation to spot deepfakes and manipulated content. Upload a file or paste a link to start.
+            <p className="text-base leading-7 text-slate-700">
+              Built on a Layered Authenticity Verification System (LAVS) to give clear, human-friendly verdicts—ideal for everyone, including elderly and non-technical users.
             </p>
-            <ul className="grid gap-2 text-sm text-slate-700">
-              <li>• Origin & metadata coherence</li>
-              <li>• Pixel/temporal/spectral integrity checks</li>
-              <li>• Behavioral deviation from human patterns</li>
-              <li>• Adaptive confidence aggregation with clear verdicts</li>
-            </ul>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/verify" className="rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-slate-800">
+                Verify Content
+              </Link>
+              <Link href="#how" className="rounded-lg border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+                How It Works
+              </Link>
+            </div>
           </div>
-
           <div className="rounded-2xl bg-slate-50 p-6 shadow-inner ring-1 ring-slate-200">
-            <p className="mb-4 text-sm font-semibold text-slate-700">Quick check</p>
-            <form
-              className="flex flex-col gap-4"
-              action={apiBase ? `${apiBase}/analyze` : "/api-not-configured"}
-              method="POST"
-              encType="multipart/form-data"
-              target="_blank"
-            >
-              <div>
-                <label className="text-sm font-medium text-slate-800">Upload media (image / video / audio)</label>
-                <input
-                  type="file"
-                  name="file"
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-slate-400 focus:outline-none"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
-                <span className="h-px flex-1 bg-slate-200" />
-                or
-                <span className="h-px flex-1 bg-slate-200" />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-slate-800">Paste a URL</label>
-                <input
-                  type="url"
-                  name="url"
-                  placeholder="https://example.com/content"
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-slate-400 focus:outline-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="mt-2 inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow hover:bg-slate-800 focus:outline-none"
-                disabled={!apiBase}
-              >
-                {apiBase ? "Run Verification" : "Set NEXT_PUBLIC_API_BASE"}
-              </button>
-
-              {!apiBase && (
-                <p className="text-xs text-amber-600">
-                  Configure <code className="font-mono">NEXT_PUBLIC_API_BASE</code> to point to your backend (e.g., https://your-backend.onrender.com).
-                </p>
-              )}
-            </form>
+            <h3 className="text-lg font-semibold text-slate-900">Why this matters</h3>
+            <ul className="mt-4 space-y-3 text-sm text-slate-700">
+              <li>• AI deepfakes and scam content are rising.</li>
+              <li>• It’s hard to spot fake videos, voices, and websites.</li>
+              <li>• Elderly and non-technical users are especially vulnerable.</li>
+            </ul>
           </div>
         </section>
 
-        <section className="grid gap-4 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100 lg:grid-cols-3">
-          {[
-            {
-              title: "Origin Forensics",
-              text: "Creation/modify timestamps, EXIF/tool fingerprints, codec & SSL/WHOIS sanity checks.",
-            },
-            {
-              title: "Pattern Integrity",
-              text: "Pixel co-occurrence, temporal variance, spectral stability to spot synthetic smoothing.",
-            },
-            {
-              title: "Behavioral Deviation",
-              text: "Flags over-consistency and low entropy across layers—hallmarks of AI generation.",
-            },
-          ].map((card) => (
-            <div key={card.title} className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-slate-800 shadow-sm">
-              <h3 className="text-base font-semibold text-slate-900">{card.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{card.text}</p>
+        <section id="problem" className="grid gap-4 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100 lg:grid-cols-2">
+          <div>
+            <h2 className="text-2xl font-semibold text-slate-900">The Problem</h2>
+            <p className="mt-3 text-slate-700">Deepfakes and AI-generated scams make it easy to fool people. Many users are not tech-savvy and need a clear, safe way to verify content.</p>
+          </div>
+          <div className="grid gap-3 text-sm text-slate-700">
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• Fake videos and voices spread quickly.</div>
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• Scam websites impersonate trusted brands.</div>
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• Elderly and non-technical users are targeted.</div>
+          </div>
+        </section>
+
+        <section id="solution" className="grid gap-6 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <h2 className="text-2xl font-semibold text-slate-900">Our Solution</h2>
+            <p className="mt-2 text-slate-700">Upload media or paste a link. The system checks authenticity across multiple layers and shows a clear verdict.</p>
+          </div>
+          <div className="lg:col-span-2 grid gap-3 text-sm text-slate-700">
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• Upload or paste a URL.</div>
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• System analyzes using multiple verification layers.</div>
+            <div className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">• You get a simple verdict with confidence and explanation.</div>
+          </div>
+        </section>
+
+        <section id="how" className="grid gap-4 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <h2 className="text-2xl font-semibold text-slate-900">How It Works</h2>
+          </div>
+          {["Upload or enter URL", "System analyzes authenticity", "Verdict: Real / Suspicious / Likely Fake"].map((step, idx) => (
+            <div key={step} className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100">
+              <div className="mb-2 text-xs font-semibold text-slate-500">Step {idx + 1}</div>
+              <div className="text-sm font-semibold text-slate-900">{step}</div>
             </div>
           ))}
+        </section>
+
+        <section id="features" className="grid gap-4 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100 lg:grid-cols-3">
+          {[ 
+            "Supports Image, Video, Audio, Website URLs",
+            "Confidence score with simple explanation",
+            "Designed for non-technical users",
+            "Fraud and misinformation prevention",
+            "Layered verification (LAVS)",
+            "Clear, color-coded verdicts",
+          ].map((f) => (
+            <div key={f} className="rounded-xl bg-slate-50 p-4 text-sm text-slate-800 ring-1 ring-slate-100">
+              {f}
+            </div>
+          ))}
+        </section>
+
+        <section className="flex flex-col items-start gap-4 rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-100">
+          <h3 className="text-xl font-semibold text-slate-900">Ready to check content?</h3>
+          <Link href="/verify" className="rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow hover:bg-slate-800">
+            Start Verification
+          </Link>
         </section>
       </main>
     </div>
